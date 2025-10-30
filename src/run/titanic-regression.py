@@ -30,7 +30,7 @@ def data_cleaning(df):
         for j in range(0,2):
             df.loc[((
                 df['Pclass'] == i) & (df['Sex'] == j
-            )), 'Age'] = (
+            ) & (df['Age'].isnull())), 'Age'] = (
             np.mean(df['Age'].loc[((
                 df['Pclass'] == i) &
                 (df['Sex'] == j
@@ -39,9 +39,6 @@ def data_cleaning(df):
 
 
 def main():
-    script_directory = os.path.dirname(os.path.abspath(sys.argv[0]))
-    print(script_directory)
-    
     print("import the training data")
     training_ship = pd.read_csv("../data/train.csv")
 
@@ -86,7 +83,7 @@ def main():
     test_predictions_df['Predictions'] = full_test_predictions
 
     print("Test set predictions found in test_set_predictions.csv")
-    test_predictions_df.to_csv("test_set_predictions")
+    test_predictions_df.to_csv("test_set_predictions.csv")
 
 
 if __name__=="__main__":
